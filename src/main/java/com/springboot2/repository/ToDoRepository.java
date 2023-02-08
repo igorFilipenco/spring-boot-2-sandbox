@@ -4,6 +4,7 @@ import com.springboot2.domain.ToDo;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import org.springframework.stereotype.Repository;
 
+
 @Repository
-public interface ToDoRepository extends ReactiveCrudRepository<ToDo,String> {
+public interface ToDoRepository extends ReactiveCrudRepository<ToDo,Long> {
 }

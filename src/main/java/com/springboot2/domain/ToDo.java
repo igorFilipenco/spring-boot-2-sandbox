@@ -2,36 +2,44 @@ package com.springboot2.domain;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.annotation.Version;
+import org.springframework.data.relational.core.mapping.Column;
+import org.springframework.data.relational.core.mapping.Table;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
 
-
 @Data
 @RequiredArgsConstructor
-@Entity
-@Table(name = "todo")
+@Table(name = "to_do")
 public class ToDo {
     @Id
-    @NotNull
-    @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(name = "system-uuid", strategy = "uuid")
-    private String id;
+    private Long id;
+    @Version
+    private Long version;
+
+    @Column(value = "description")
     @NotNull
     @NotBlank
     private String description;
-    @CreationTimestamp
+
+    @Column(value = "created")
+    @CreatedDate
     private Timestamp created;
-    @UpdateTimestamp
+
+    @Column(value = "modified")
+    @LastModifiedDate
     private Timestamp modified;
+
+    @Column(value = "completed")
     private boolean completed;
+
+    public boolean getCompleted() {
+        return this.completed;
+    }
 }
